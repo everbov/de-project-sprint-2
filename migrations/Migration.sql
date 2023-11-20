@@ -121,14 +121,12 @@ WITH  t_booked_time AS
           state,
           state_datetime AS shipping_start_fact_datetime
    FROM shipping s
-   WHERE state = 'booked')
-   ,
+   WHERE state = 'booked'),
 t_max_order_time AS
   (SELECT shippingid, MAX(state_datetime) AS max_state_datetime
    FROM shipping
    GROUP BY shippingid
-)   
-   ,
+),
      t_recieved AS
   (SELECT shippingid,
           state,
@@ -136,9 +134,7 @@ t_max_order_time AS
    FROM shipping s
    WHERE state = 'recieved')
 
-   
-   
-SELECT s.shippingid,
+   SELECT s.shippingid,
        s.status,
        s.state,
        b.shipping_start_fact_datetime,
